@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入頁面</title>
+    <link rel="stylesheet" href="<%= nginx_dir %>styles/styles.css" />
+    <!--Google sign in SDK-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+<body class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="bg-white shadow-md p-6 rounded-lg">
+        <h2 class="text-2xl mb-4">Login</h2>
+
+        <div id="emailContainer" class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
+            <input type="text" id="email" value="stylishtest_abcdefgh@test.com" required
+                class="w-full p-2 border rounded text-gray-800 focus:outline-none focus:border-blue-500">
+            <p id="warning" class="hidden text-red-500 text-sm">Wrong email or password</p>
+        </div>
+        <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-600">Password:</label>
+            <input type="password" id="password" value="1qaz@WSX" required
+                class="w-full p-2 border rounded text-gray-800 focus:outline-none focus:border-blue-500">
+        </div>
+        <button type="button" id="loginButton"
+            class="w-full py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600">Sign in</button>
+        <a href="<%= hostname %>/auth/google"><button
+                class="w-full py-2 mt-2 bg-orange-400 text-white rounded cursor-pointer hover:bg-orange-600">Google sign
+                in</button></a>
+
+        <button type="button" id="registerButton"
+            class="w-full py-2 mt-2 bg-green-500 text-white rounded cursor-pointer hover:bg-green-600">Sign up</button>
+
+
+    </div>
+
+
+    <script>
+        localStorage.removeItem('access_token')
+        var warning = document.getElementById('warning')
+        document.getElementById('loginButton').addEventListener('click', function () {
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+            const requestData = {
+                provider: "native",
+                email: email,
+                password: password
+            }
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', '<%= nginx_dir %>api/1.0/user/signin', true)
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log('Login success')
+                    console.log(JSON.parse(xhr.responseText))
+                    let access_token = JSON.parse(xhr.responseText).data.access_token
+                    localStorage.setItem('access_token', access_token)
+                    window.location.href = '<%= nginx_dir %>admin/checkout.html'
+                } else {
+                    warning.classList.remove('hidden')
+                    console.log('Login fail')
+                    alert('Login failed')
+                }
+            }
+
+
+            xhr.send(JSON.stringify(requestData))
+
+        })
+
+        document.getElementById('registerButton').addEventListener('click', function () {
+            window.location.href = '<%= nginx_dir %>user/signup'
+        })
+
+    </script>
+</body>
+
+</html>

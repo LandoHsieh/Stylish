@@ -1,0 +1,663 @@
+{
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "Stylish API",
+            "version": "1.0.0",
+            "description": "Stylish API"
+        },
+        "tags": {
+            "name": "Product API"
+        },
+        "servers": [
+            {
+                "url": "https://18.136.130.136",
+                "description": "EC2"
+            },
+            {
+                "url": "http://localhost:3000",
+                "description": "localhost"
+            }
+        ],
+        "paths": {
+            "/api/1.0/createProduct": {
+                "post": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Create a product.",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "main_image": {
+                                            "type": "file"
+                                        },
+                                        "images": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "file"
+                                            }
+                                        },
+                                        "productInfo": {
+                                            "type": "string",
+                                            "example": {
+                                                "id": 9001,
+                                                "category": "accessories",
+                                                "title": "時尚手錶",
+                                                "description": "精致的手錶，是您的時尚配件的理想選擇。",
+                                                "price": 1000,
+                                                "texture": "不鏽鋼、皮革",
+                                                "wash": "不需要特別的護理",
+                                                "place": "瑞士",
+                                                "note": "商品圖片僅供參考",
+                                                "story": "這款手錶將成為您日常生活的亮點。",
+                                                "colors": [
+                                                    {
+                                                        "code": "000000",
+                                                        "name": "黑色"
+                                                    },
+                                                    {
+                                                        "code": "FFFFFF",
+                                                        "name": "白色"
+                                                    }
+                                                ],
+                                                "sizes": [
+                                                    "一尺",
+                                                    "一尺半"
+                                                ],
+                                                "variants": [
+                                                    {
+                                                        "color_code": "000000",
+                                                        "size": "一尺",
+                                                        "stock": 20
+                                                    },
+                                                    {
+                                                        "color_code": "FFFFFF",
+                                                        "size": "一尺",
+                                                        "stock": 15
+                                                    },
+                                                    {
+                                                        "color_code": "000000",
+                                                        "size": "一尺半",
+                                                        "stock": 10
+                                                    }
+                                                ],
+                                                "main_image": "https://example.com/watch.jpg",
+                                                "images": [
+                                                    "https://example.com/watch1.jpg",
+                                                    "https://example.com/watch2.jpg"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Success create product.",
+                            "content": {
+                                "text/plain": {
+                                    "schema": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/all": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Return all products.",
+                    "parameters": [
+                        {
+                            "name": "paging",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Number of page."
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "request successfully",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/women": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Return women products.",
+                    "parameters": [
+                        {
+                            "name": "paging",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Number of page."
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/men": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Return men products.",
+                    "parameters": [
+                        {
+                            "name": "paging",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Number of page."
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/accessories": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Return accessories products.",
+                    "description": "Return accessories products with Json format.",
+                    "parameters": [
+                        {
+                            "name": "paging",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Number of page."
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/search": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Search products.",
+                    "description": "Return product which product name matches the search keywords.",
+                    "parameters": [
+                        {
+                            "name": "keyword",
+                            "in": "query",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            },
+                            "description": "Keyword to search for."
+                        },
+                        {
+                            "name": "paging",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Number of page."
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Product search successfully!",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400": {
+                            "description": "Can not found product."
+                        }
+                    }
+                }
+            },
+            "/api/1.0/products/details": {
+                "get": {
+                    "tags": [
+                        "Product API"
+                    ],
+                    "summary": "Product details.",
+                    "description": "Return product details.",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "query",
+                            "schema": {
+                                "type": "int"
+                            },
+                            "description": "Product ID"
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Correct product ID"
+                        },
+                        "400": {
+                            "description": "Can not found product."
+                        }
+                    }
+                }
+            },
+            "/api/1.0/user/signup": {
+                "post": {
+                    "tags": [
+                        "User APIs"
+                    ],
+                    "summary": "User sign up.",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "stylishtest"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "stylishtest_abcdefgh@test.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "1qaz@WSX"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "User sign up successfully."
+                        },
+                        "409": {
+                            "description": "Email Already Exists"
+                        },
+                        "400": {
+                            "description": "Client Error Response"
+                        },
+                        "500": {
+                            "description": "Server Error Response"
+                        }
+                    }
+                }
+            },
+            "/api/1.0/user/signin": {
+                "post": {
+                    "tags": [
+                        "User APIs"
+                    ],
+                    "summary": "User sign in.",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "provider": {
+                                            "type": "string",
+                                            "example": "native"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "stylishtest_abcdefgh@test.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "1qaz@WSX"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "User sign in successfully."
+                        },
+                        "403": {
+                            "description": "Sign In Failed"
+                        },
+                        "400": {
+                            "description": "Client Error Response"
+                        },
+                        "500": {
+                            "description": "Client Error Response"
+                        }
+                    }
+                }
+            },
+            "/api/1.0/user/profile": {
+                "get": {
+                    "tags": [
+                        "User APIs"
+                    ],
+                    "summary": "User profile.",
+                    "description": "Return user's profile.",
+                    "security": [
+                        {
+                            "BearerAuth": []
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Success Response"
+                        },
+                        "401": {
+                            "description": "Client Error (No token) Response"
+                        },
+                        "403": {
+                            "description": "Client Error (Wrong token) Response"
+                        },
+                        "500": {
+                            "description": "Server Error Response"
+                        }
+                    }
+                }
+            }
+        },
+        "security": [
+            {
+                "BearerAuth": []
+            }
+        ],
+        "components": {
+            "schemas": {
+                "Product": {
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "example": 9001
+                        },
+                        "category": {
+                            "type": "string",
+                            "example": "accessories"
+                        },
+                        "title": {
+                            "type": "string",
+                            "example": "時尚手錶"
+                        },
+                        "description": {
+                            "type": "string",
+                            "example": "精致的手錶，是您的時尚配件的理想選擇。"
+                        },
+                        "price": {
+                            "type": "integer",
+                            "example": 1000
+                        },
+                        "texture": {
+                            "type": "string",
+                            "example": "不鏽鋼、皮革"
+                        },
+                        "wash": {
+                            "type": "string",
+                            "example": "不需要特別的護理"
+                        },
+                        "place": {
+                            "type": "string",
+                            "example": "瑞士"
+                        },
+                        "note": {
+                            "type": "string",
+                            "example": "商品圖片僅供參考"
+                        },
+                        "story": {
+                            "type": "string",
+                            "example": "這款手錶將成為您日常生活的亮點。"
+                        },
+                        "colors": {
+                            "type": "object",
+                            "example": [
+                                {
+                                    "code": "000000",
+                                    "name": "黑色"
+                                },
+                                {
+                                    "code": "FFFFFF",
+                                    "name": "白色"
+                                }
+                            ]
+                        },
+                        "sizes": {
+                            "type": "object",
+                            "example": [
+                                "一尺",
+                                "一尺半"
+                            ]
+                        },
+                        "variants": {
+                            "type": "object",
+                            "example": [
+                                {
+                                    "color_code": "000000",
+                                    "size": "一尺",
+                                    "stock": 20
+                                },
+                                {
+                                    "color_code": "FFFFFF",
+                                    "size": "一尺",
+                                    "stock": 15
+                                },
+                                {
+                                    "color_code": "000000",
+                                    "size": "一尺半",
+                                    "stock": 10
+                                }
+                            ]
+                        },
+                        "main_image": {
+                            "type": "string",
+                            "example": "https://example.com/watch.jpg"
+                        },
+                        "images": {
+                            "type": "object",
+                            "example": [
+                                "https://example.com/watch1.jpg",
+                                "https://example.com/watch2.jpg"
+                            ]
+                        }
+                    }
+                },
+                "ProductInput": {
+                    "properties": {
+                        "id": {
+                            "type": "integer",
+                            "example": 9001
+                        },
+                        "category": {
+                            "type": "string",
+                            "example": "accessories"
+                        },
+                        "title": {
+                            "type": "string",
+                            "example": "時尚手錶"
+                        },
+                        "description": {
+                            "type": "string",
+                            "example": "精致的手錶，是您的時尚配件的理想選擇。"
+                        },
+                        "price": {
+                            "type": "integer",
+                            "example": 1000
+                        },
+                        "texture": {
+                            "type": "string",
+                            "example": "不鏽鋼、皮革"
+                        },
+                        "wash": {
+                            "type": "string",
+                            "example": "不需要特別的護理"
+                        },
+                        "place": {
+                            "type": "string",
+                            "example": "瑞士"
+                        },
+                        "note": {
+                            "type": "string",
+                            "example": "商品圖片僅供參考"
+                        },
+                        "story": {
+                            "type": "string",
+                            "example": "這款手錶將成為您日常生活的亮點。"
+                        },
+                        "colors": {
+                            "type": "object",
+                            "example": [
+                                {
+                                    "code": "000000",
+                                    "name": "黑色"
+                                },
+                                {
+                                    "code": "FFFFFF",
+                                    "name": "白色"
+                                }
+                            ]
+                        },
+                        "sizes": {
+                            "type": "object",
+                            "example": [
+                                "一尺",
+                                "一尺半"
+                            ]
+                        },
+                        "variants": {
+                            "type": "object",
+                            "example": [
+                                {
+                                    "color_code": "000000",
+                                    "size": "一尺",
+                                    "stock": 20
+                                },
+                                {
+                                    "color_code": "FFFFFF",
+                                    "size": "一尺",
+                                    "stock": 15
+                                },
+                                {
+                                    "color_code": "000000",
+                                    "size": "一尺半",
+                                    "stock": 10
+                                }
+                            ]
+                        },
+                        "main_image": {
+                            "type": "string",
+                            "example": "https://example.com/watch.jpg"
+                        },
+                        "images": {
+                            "type": "object",
+                            "example": [
+                                "https://example.com/watch1.jpg",
+                                "https://example.com/watch2.jpg"
+                            ]
+                        }
+                    }
+                }
+            },
+            "securitySchemes": {
+                "BearerAuth": {
+                    "type": "apiKey",
+                    "name": "Authorization",
+                    "in": "header"
+                }
+            }
+        }
+    },
+    "apis": [
+        "index.js"
+    ]
+}

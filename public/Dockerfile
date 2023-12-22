@@ -1,0 +1,16 @@
+FROM node:18.18
+
+WORKDIR /app
+
+COPY package.json .
+COPY vite.config.js .
+
+RUN ["npm", "install"]
+
+COPY . .
+
+ENV PORT=3001
+
+EXPOSE 3001
+
+CMD ["npm", "run", "dev"]

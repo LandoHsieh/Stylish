@@ -1,0 +1,15 @@
+@keyframes shimmer {
+    0% {
+      background-position: -200px;
+    }
+    100% {
+      background-position: calc(200px + 100%);
+    }
+  }
+  
+  .skeleton {
+    animation: shimmer 1.5s infinite linear;
+    background: #f2f2f2; 
+    background-image: linear-gradient(to right, #f2f2f2 0%, #e0e0e0 50%, #f2f2f2 100%);
+    background-size: 200px 100%; 
+  }
