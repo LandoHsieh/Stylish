@@ -3,3 +3,4 @@ node_modules
 .well-known
 forTest
 docker-compose.yaml
+private
