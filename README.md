@@ -35,5 +35,46 @@
 ## 測試帳號
 |帳號|密碼|
 |----|----|
-|ann@gmail.com|ann|
+|ann@gmail.com|ann|  
 
+## 使用說明
+客服測試可以進入 [後台客服頁面](http://18.136.130.136:4000/admin.html)   
+前端使用者進入 [Stylish頁面](http://18.136.130.136:4000/index.html)  
+客服人員可以在聊天室中與使用者對話  
+
+## 前端
+### 框架 
+- [React](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+### UI工具
+- [SweetAlert2](https://sweetalert2.github.io/)
+
+### API請求
+- [axios](https://axios-http.com/)
+
+## 後端
+### 框架
+- [Express.js](https://expressjs.com/zh-tw/)
+  
+### 資料庫
+- [mysql2](https://www.npmjs.com/package/mysql2)
+- [Redis](https://redis.io/)
+### 通訊協定
+- [WebSocket](https://www.npmjs.com/package/socket.io)
+
+### 雲端服務 ＆ 部署
+- AWS EC2
+- AWS RDS
+- Docker
+
+### Tools
+- Linux Crontab
+- [RabbitMQ](https://www.rabbitmq.com/)  
+
+## 即時客服系統架構圖  
+![即時客服架構圖](https://github.com/LandoHsieh/Stylish/assets/138661291/22d5e5e1-7857-4b28-83f9-5d63bf145f5b)
+
+
+## 系統架構圖  
+![Stylish_advanced架構圖](https://github.com/LandoHsieh/Stylish/assets/138661291/0d1e5a0d-2fce-4809-ac6d-e75acd1c9dfc)
